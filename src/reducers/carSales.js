@@ -24,7 +24,9 @@ export const reducer = (state = initialState, action) => {
         ...state,
         car: {
           ...state.car,
-          features: [...state.car.features, action.payload]
+          features: state.car.features.includes(action.payload)
+            ? state.car.features
+            : [...state.car.features, action.payload]
         }
       };
     case REMOVE_FEATURE:
@@ -32,7 +34,7 @@ export const reducer = (state = initialState, action) => {
         ...state,
         car: {
           ...state.car,
-          features: state.features.filter(
+          features: state.car.features.filter(
             feature => feature.id !== action.payload
           )
         }
